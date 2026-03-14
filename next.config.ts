@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         hostname: 'res.cloudinary.com',
         pathname: '/dtdiyk4iv/**',
       },
+      {
+        protocol: 'http',
+        hostname: 'res.cloudinary.com',
+        pathname: '/dtdiyk4iv/**',
+      },
     ],
   },
   reactCompiler: true,

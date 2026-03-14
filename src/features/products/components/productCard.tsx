@@ -13,8 +13,14 @@ interface ProductCardProps {
 const FALLBACK_IMAGE = '/images/no-image.png';
 
 export function ProductCard({ product }: ProductCardProps) {
-  const rawUrl = product.images?.[0]?.url;
-const mainImage = rawUrl
+  const rawUrl = product.images?.[0]?.url ?? '';
+
+const isValidCloudinaryUrl = rawUrl.startsWith('https://res.cloudinary.com') ||
+  rawUrl.startsWith('http://res.cloudinary.com');
+
+const mainImage = isValidCloudinaryUrl
+  ? rawUrl
+  : rawUrl && !rawUrl.startsWith('http')
   ? `${CLOUDINARY_BASE_URL}/${rawUrl}`
   : '/images/no-image.png';
   // El primer tag actúa como categoría visible
