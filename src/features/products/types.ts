@@ -2,7 +2,7 @@
 export interface ProductSeller {
   id: string;
   fullName: string;
-  whattsapNumber: string;
+  WhattsapNumber: string;
 }
 
 export interface ProductImage {

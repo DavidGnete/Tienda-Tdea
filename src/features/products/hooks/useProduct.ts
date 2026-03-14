@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { productService } from '../services/product.service';
-import type { Product } from '../types';
+import { Product } from '../types';
 
 interface UseProductReturn {
   product: Product | null;
@@ -10,34 +10,31 @@ interface UseProductReturn {
   error: string | null;
 }
 
-export function useProduct(term: string): UseProductReturn {
+export function useProduct(slug: string): UseProductReturn {
   const [product, setProduct] = useState<Product | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!slug) return;
     let cancelled = false;
 
-    const fetchProduct = async () => {
+    const fetch = async () => {
       setIsLoading(true);
       setError(null);
-
       try {
-        const data = await productService.getBySlug(term);
+        const data = await productService.getBySlug(slug);
         if (!cancelled) setProduct(data);
       } catch {
-        if (!cancelled) setError('No se pudo cargar el producto.');
+        if (!cancelled) setError('Producto no encontrado.');
       } finally {
         if (!cancelled) setIsLoading(false);
       }
     };
 
-    if (term) fetchProduct();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [term]);
+    fetch();
+    return () => { cancelled = true; };
+  }, [slug]);
 
   return { product, isLoading, error };
 }
