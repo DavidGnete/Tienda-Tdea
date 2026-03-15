@@ -1,78 +1,65 @@
 'use client';
 
-import { useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { TOKEN_KEY } from '@/lib/constants';
-import { authService } from '../services/auth.service';
-import type { LoginDto, RegisterDto } from '../types';
 import { useAuthStore } from '@/store/auth.store';
+import { authService } from '../services/auth.service';
+import { TOKEN_KEY } from '@/lib/constants';
+import type { LoginDto, RegisterDto } from '../types';
 
 export function useAuth() {
-  const { user, status, setUser, setToken, setStatus, logout } = useAuthStore();
+  const { user, status, token, setUser, setToken, setStatus, logout } = useAuthStore();
   const router = useRouter();
 
-  const handleLogout = useCallback(() => {
-    logout();
-    router.push('/login');
-  }, [logout, router]);
+  const checkSession = async () => {
+    const savedToken = localStorage.getItem(TOKEN_KEY);
 
-  const checkSession = useCallback(async () => {
-    setStatus('checking');
-
-    try {
-      const data = await authService.checkStatus();
-      setUser(data.user);
-      setToken(data.token);
-      setStatus('authenticated');
-    } catch {
+    if (!savedToken) {
       logout();
-    }
-  }, [logout, setStatus, setToken, setUser]);
-
-  useEffect(() => {
-    // La store persistida puede ya tener un token.
-    if (status !== 'checking') return;
-
-    const token = typeof window !== 'undefined' ? localStorage.getItem(TOKEN_KEY) : null;
-    if (token) {
-      setToken(token);
-      void checkSession();
       return;
     }
 
-    setStatus('unauthenticated');
-  }, [checkSession, setStatus, setToken, status]);
+    setStatus('checking');
 
-  const login = useCallback(
-    async (dto: LoginDto) => {
-      setStatus('checking');
-      const data = await authService.login(dto);
-      setToken(data.token);
-      setUser(data.user);
-      setStatus('authenticated');
-      return data;
-    },
-    [setStatus, setToken, setUser],
-  );
+    try {
+      const response = await authService.checkStatus();
+      setUser(response.user);    // ← guarda el user
+      setToken(response.token);  // ← guarda el token
+      setStatus('authenticated'); // ← cambia el status ✅
+    } catch {
+      logout();
+    }
+  };
 
-  const register = useCallback(
-    async (dto: RegisterDto) => {
-      setStatus('checking');
-      const data = await authService.register(dto);
-      setToken(data.token);
-      setUser(data.user);
-      setStatus('authenticated');
-      return data;
-    },
-    [setStatus, setToken, setUser],
-  );
+  const login = async (dto: LoginDto) => {
+    const response = await authService.login(dto);
+    setUser(response.user);    // ← guarda el user
+    setToken(response.token);  // ← guarda el token
+    setStatus('authenticated'); // ← cambia el status ✅
+    router.push('/');
+  };
+
+  const register = async (dto: RegisterDto) => {
+    const response = await authService.register(dto);
+    setUser(response.user);    // ← guarda el user
+    setToken(response.token);  // ← guarda el token
+    setStatus('authenticated'); // ← cambia el status ✅
+    router.push('/login');
+  };
+
+  const logoutUser = () => {
+    logout();
+    router.push('/');
+  };
 
   return {
     user,
+    token,
     status,
+    isAuthenticated: status === 'authenticated',
+    isAdmin: user?.roles?.includes('admin') ?? false,
+    checkSession,
     login,
     register,
-    logout: handleLogout,
-    checkSession,
+    logout: logoutUser,
   };
 }

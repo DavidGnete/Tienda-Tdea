@@ -4,8 +4,8 @@ export interface AuthUser {
   id: string;
   email: string;
   fullName: string;
-  whattsapNumber: string;
-  role: UserRole;
+  WhattsapNumber: string;
+  roles: UserRole[];
 }
 
 export interface AuthResponse {
@@ -22,5 +22,5 @@ export interface RegisterDto {
   email: string;
   password: string;
   fullName: string;
-  whattsapNumber: string;
+  WhattsapNumber: string;
 }
