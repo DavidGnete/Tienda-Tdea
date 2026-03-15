@@ -45,7 +45,7 @@ export default function ProductPage() {
 
   // Construye el link de WhatsApp con mensaje predefinido
   const whatsappUrl = product
-    ? `https://wa.me/${product.user.WhattsapNumber}?text=${encodeURIComponent(
+    ? `https://wa.me/+57${product.user.WhattsapNumber}?text=${encodeURIComponent(
         `Hola ${product.user.fullName}, vi tu producto "${product.title}" en Tienda TDEA y me interesa. ¿Sigue disponible?`,
       )}`
     : '#';
