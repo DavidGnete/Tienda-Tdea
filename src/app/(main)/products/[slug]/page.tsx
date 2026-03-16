@@ -4,8 +4,11 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import { useProduct } from '@/features/products/hooks/useProduct';
+import { useProducts } from "@/features/products/hooks/useProducts";
+
 import { ImageSlideshow } from '@/features/products/components/ImageSlideShow';
 import { Button } from '@/components/ui/Button';
+import { ProductGrid } from '@/features/products/components/ProductGrid';
 
 // ─── Icono WhatsApp ──────────────────────────────────────────────────
 function WhatsAppIcon({ className }: { className?: string }) {
@@ -41,7 +44,8 @@ function ProductDetailSkeleton() {
 // ─── Página principal ────────────────────────────────────────────────
 export default function ProductPage() {
   const { slug } = useParams() as { slug: string };
-  const { product, isLoading, error } = useProduct(slug);
+  const {products} = useProducts();
+  const { product, isLoading, error} = useProduct(slug);
 
   // Construye el link de WhatsApp con mensaje predefinido
   const whatsappUrl = product
@@ -125,8 +129,12 @@ export default function ProductPage() {
             </Button>
         
           </div>
+          
         </div>
       )}
+      <div>
+        <ProductGrid products={products} />
+      </div>
     </main>
   );
 }
