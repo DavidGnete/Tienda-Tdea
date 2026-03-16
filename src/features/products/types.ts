@@ -12,6 +12,7 @@ export interface ProductImage {
 
 // ─── Entidad principal ───────────────────────────────────────────────
 export interface Product {
+  status: any;
   tags: any;
   id: string;
   title: string;

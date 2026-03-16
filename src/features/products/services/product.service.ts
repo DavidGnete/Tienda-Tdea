@@ -30,6 +30,16 @@ export const productService = {
     return data;
   },
 
+  /* Get By User Products */
+  getMyProducts: async (params: PaginationParams = {}):Promise<ProductsResponse> => {
+    const { data } = await axiosClient.get<ProductsResponse>('/products/my-products', {
+      params: {
+        limit: params.limit ?? PAGINATION_DEFAULTS.limit,
+        offset: params.offset ?? PAGINATION_DEFAULTS.offset,
+      },
+    });
+    return data;
+  },
   /**
    * POST /products — crear producto (requiere auth)
    */
