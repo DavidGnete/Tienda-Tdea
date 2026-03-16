@@ -51,7 +51,7 @@ export function LoginForm() {
 
       {error ? <p className="text-sm text-destructive">{error}</p> : null}
 
-      <Button type="submit" isLoading={isLoading} className="w-full">
+      <Button type="submit" disabled={isLoading} className="w-full">
         Iniciar sesión
       </Button>
     </form>

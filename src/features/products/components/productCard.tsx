@@ -24,7 +24,6 @@ const mainImage = isValidCloudinaryUrl
   ? `${CLOUDINARY_BASE_URL}/${rawUrl}`
   : '/images/no-image.png';
   // El primer tag actúa como categoría visible
-  const category = product.tags?.[0] ?? null;
 
   return (
     <Link href={`/products/${product.slug}`}>
@@ -53,13 +52,7 @@ const mainImage = isValidCloudinaryUrl
             <Heart className="w-4 h-4 text-foreground" />
           </button>
 
-          {/* Badge sin stock */}
-          {product.stock === 0 && (
-            <div className="absolute top-2 left-2 bg-primary text-primary-foreground
-                            text-xs font-medium px-2 py-1 rounded-full">
-              Agotado
-            </div>
-          )}
+          
         </div>
 
         {/* ── Info ───────────────────────────────────────────── */}
@@ -73,17 +66,6 @@ const mainImage = isValidCloudinaryUrl
           <p className="text-sm text-muted-foreground line-clamp-2">
             {product.title}
           </p>
-
-          {/* Categoría / tag */}
-          {category && (
-            <div className="flex items-center gap-2 pt-1">
-              <span className="flex items-center gap-1 text-xs text-muted-foreground
-                               bg-secondary px-2 py-0.5 rounded-full">
-                <Tag className="w-3 h-3" />
-                {category}
-              </span>
-            </div>
-          )}
 
           {/* Vendedor */}
           <p className="text-xs text-muted-foreground pt-0.5">

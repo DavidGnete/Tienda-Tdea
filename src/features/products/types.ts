@@ -12,19 +12,16 @@ export interface ProductImage {
 
 // ─── Entidad principal ───────────────────────────────────────────────
 export interface Product {
+  tags: any;
   id: string;
   title: string;
   description: string;
   price: number;
   slug: string;
-  stock: number;
   images: ProductImage[];   // URLs de Cloudinary
-  tags: string[];     // Se usan como categorías
   user: ProductSeller;
 }
 
-// ─── Respuesta paginada del GET /products ───────────────────────────
-// El backend retorna un array directamente, ajusta si cambia la forma
 export type ProductsResponse = Product[];
 
 // ─── Parámetros de paginación ────────────────────────────────────────
@@ -38,8 +35,6 @@ export interface CreateProductDto {
   title: string;
   description: string;
   price: number;
-  stock: number;
-  tags?: string[];
   images?: string[];
 }
 

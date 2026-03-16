@@ -4,8 +4,11 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import { useProduct } from '@/features/products/hooks/useProduct';
+import { useProducts } from "@/features/products/hooks/useProducts";
+
 import { ImageSlideshow } from '@/features/products/components/ImageSlideShow';
 import { Button } from '@/components/ui/Button';
+import { ProductGrid } from '@/features/products/components/ProductGrid';
 
 // ─── Icono WhatsApp ──────────────────────────────────────────────────
 function WhatsAppIcon({ className }: { className?: string }) {
@@ -41,7 +44,8 @@ function ProductDetailSkeleton() {
 // ─── Página principal ────────────────────────────────────────────────
 export default function ProductPage() {
   const { slug } = useParams() as { slug: string };
-  const { product, isLoading, error } = useProduct(slug);
+  const {products} = useProducts();
+  const { product, isLoading, error} = useProduct(slug);
 
   // Construye el link de WhatsApp con mensaje predefinido
   const whatsappUrl = product
@@ -88,19 +92,24 @@ export default function ProductPage() {
 
           {/* Columna derecha — Info */}
           <div className="flex flex-col">
-            {/* Categoría */}
-            {product.tags?.[0] && (
-              <span className="inline-flex self-start text-xs font-medium
-                               text-muted-foreground bg-secondary
-                               px-3 py-1 rounded-full mb-3">
-                {product.tags[0]}
-              </span>
-            )}
-
             {/* Título */}
             <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
               {product.title}
             </h1>
+
+            {/* Divider */}
+            <div className="border-t border-border my-6" />
+
+            {/* Descripción */}
+            <div>
+              <h2 className="text-base font-semibold text-foreground mb-2">
+                Descripción
+              </h2>
+              <p className="text-sm text-muted-foreground whitespace-pre-line leading-relaxed">
+                {product.description}
+              </p>
+            </div>
+
 
             {/* Precio */}
             <p className="text-4xl sm:text-5xl font-bold text-foreground mt-4">
@@ -118,22 +127,14 @@ export default function ProductPage() {
                 Contactar por WhatsApp
               </a>
             </Button>
-
-            {/* Divider */}
-            <div className="border-t border-border my-6" />
-
-            {/* Descripción */}
-            <div>
-              <h2 className="text-base font-semibold text-foreground mb-2">
-                Descripción
-              </h2>
-              <p className="text-sm text-muted-foreground whitespace-pre-line leading-relaxed">
-                {product.description}
-              </p>
-            </div>
+        
           </div>
+          
         </div>
       )}
+      <div>
+        <ProductGrid products={products} />
+      </div>
     </main>
   );
 }

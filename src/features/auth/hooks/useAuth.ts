@@ -11,7 +11,8 @@ export function useAuth() {
   const router = useRouter();
 
   const checkSession = async () => {
-    const savedToken = localStorage.getItem(TOKEN_KEY);
+    const savedToken =
+      typeof window !== 'undefined' ? localStorage.getItem(TOKEN_KEY) : null;
 
     if (!savedToken) {
       logout();
@@ -19,12 +20,11 @@ export function useAuth() {
     }
 
     setStatus('checking');
-
     try {
       const response = await authService.checkStatus();
-      setUser(response.user);    // ← guarda el user
-      setToken(response.token);  // ← guarda el token
-      setStatus('authenticated'); // ← cambia el status ✅
+      setUser(response.user);
+      setToken(response.token);
+      setStatus('authenticated');
     } catch {
       logout();
     }
@@ -32,18 +32,18 @@ export function useAuth() {
 
   const login = async (dto: LoginDto) => {
     const response = await authService.login(dto);
-    setUser(response.user);    // ← guarda el user
-    setToken(response.token);  // ← guarda el token
-    setStatus('authenticated'); // ← cambia el status ✅
+    setUser(response.user);
+    setToken(response.token);
+    setStatus('authenticated');
     router.push('/');
   };
 
+  // TODO: cuando se active verificación de email, eliminar setUser/setToken/setStatus
   const register = async (dto: RegisterDto) => {
     const response = await authService.register(dto);
-    setUser(response.user);    // ← guarda el user
-    setToken(response.token);  // ← guarda el token
-    setStatus('authenticated'); // ← cambia el status ✅
-    router.push('/login');
+    setUser(response.user as unknown as any);
+    setToken(response.token as unknown as string);
+    setStatus('authenticated');
   };
 
   const logoutUser = () => {
