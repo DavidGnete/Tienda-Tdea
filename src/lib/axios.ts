@@ -20,7 +20,8 @@ axiosClient.interceptors.response.use(
   (res) => res,
   (error) => {
     if (error.response?.status === 401) {
-      if (typeof window !== 'undefined') {
+       const message = error.response?.data?.message ?? '';
+      if (!message.includes('token expired')) {
         localStorage.removeItem(TOKEN_KEY);
       }
     }

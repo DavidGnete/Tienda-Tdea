@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import type { AuthUser } from '@/features/auth/types';
+import { TOKEN_KEY } from '@/lib/constants';
 
 export type AuthStatus = 'checking' | 'authenticated' | 'unauthenticated';
 
@@ -21,9 +22,23 @@ export const useAuthStore = create<AuthState>()(
       token: null,
       status: 'checking',
       setUser: (user) => set({ user }),
-      setToken: (token) => set({ token }),
+      setToken: (token) => {
+        if (typeof window !== 'undefined') {
+          if (token) {
+            localStorage.setItem(TOKEN_KEY, token);
+          } else {
+            localStorage.removeItem(TOKEN_KEY);
+          }
+        }
+        set({ token });
+      },
       setStatus: (status) => set({ status }),
-      logout: () => set({ user: null, token: null, status: 'unauthenticated' }),
+      logout: () => {
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem(TOKEN_KEY);
+        }
+        set({ user: null, token: null, status: 'unauthenticated' });
+      },
     }),
     {
       name: 'tienda-tdea-auth',

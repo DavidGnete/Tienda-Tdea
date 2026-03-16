@@ -88,19 +88,24 @@ export default function ProductPage() {
 
           {/* Columna derecha — Info */}
           <div className="flex flex-col">
-            {/* Categoría */}
-            {product.tags?.[0] && (
-              <span className="inline-flex self-start text-xs font-medium
-                               text-muted-foreground bg-secondary
-                               px-3 py-1 rounded-full mb-3">
-                {product.tags[0]}
-              </span>
-            )}
-
             {/* Título */}
             <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
               {product.title}
             </h1>
+
+            {/* Divider */}
+            <div className="border-t border-border my-6" />
+
+            {/* Descripción */}
+            <div>
+              <h2 className="text-base font-semibold text-foreground mb-2">
+                Descripción
+              </h2>
+              <p className="text-sm text-muted-foreground whitespace-pre-line leading-relaxed">
+                {product.description}
+              </p>
+            </div>
+
 
             {/* Precio */}
             <p className="text-4xl sm:text-5xl font-bold text-foreground mt-4">
@@ -118,19 +123,7 @@ export default function ProductPage() {
                 Contactar por WhatsApp
               </a>
             </Button>
-
-            {/* Divider */}
-            <div className="border-t border-border my-6" />
-
-            {/* Descripción */}
-            <div>
-              <h2 className="text-base font-semibold text-foreground mb-2">
-                Descripción
-              </h2>
-              <p className="text-sm text-muted-foreground whitespace-pre-line leading-relaxed">
-                {product.description}
-              </p>
-            </div>
+        
           </div>
         </div>
       )}
