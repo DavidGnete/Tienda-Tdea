@@ -20,6 +20,7 @@ interface UseProductsReturn {
 export function useMyProducts({
   limit = PAGINATION_DEFAULTS.limit,
   offset = PAGINATION_DEFAULTS.offset,
+
 }: UseProductsOptions = {}): UseProductsReturn {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);

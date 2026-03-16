@@ -11,7 +11,7 @@ export function Navbar() {
   const { status, user } = useAuthStore();
   const { logout } = useAuth();
   const firstName = user?.fullName.split(" ")[0] ?? "";
-
+  const isAdmin = user?.roles?.includes("admin") ?? false;
   const [searchQuery, setSearchQuery] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -64,6 +64,14 @@ export function Navbar() {
                     Vender
                   </Button>
                 </Link>
+
+                {isAdmin && (
+                <Link href="/dashboard/admin">
+                  <Button className="hidden sm:flex items-center gap-2 rounded-full border-border hover:border-primary hover:text-primary transition-colors">
+                    Panel Admin
+                  </Button>
+                </Link>
+                  )}
 
                 <Button
                   variant="outline"
@@ -138,6 +146,13 @@ export function Navbar() {
                     Vender
                   </Button>
                 </Link>
+                {isAdmin && (
+                <Link href="/dashboard/admin">
+                  <Button className="hidden sm:flex items-center gap-2 rounded-full border-border hover:border-primary hover:text-primary transition-colors">
+                    Panel Admin
+                  </Button>
+                </Link>
+                  )}
                 <Button
                   variant="outline"
                   className="w-full justify-center rounded-full border-border"
