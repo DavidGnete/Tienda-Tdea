@@ -94,7 +94,8 @@ export function Navbar() {
                 <Link href="/login">
                   <Button
                     variant="outline"
-                    className="hidden sm:flex items-center gap-2 rounded-full border-border hover:border-primary hover:text-primary transition-colors"
+                    className="hidden sm:flex items-center gap-2 rounded-full
+                    border-border hover:border-primary hover:text-primary transition-colors cursor-pointer"
                   >
                     <User className="w-4 h-4" />
                     <span>Iniciar sesión</span>
@@ -102,7 +103,8 @@ export function Navbar() {
                 </Link>
 
                 <Link href="/login">
-                  <Button className="hidden sm:flex items-center gap-2 rounded-full bg-primary text-primary-foreground hover:bg-primary/90">
+                  <Button className="hidden sm:flex items-center gap-2 rounded-full
+                  bg-primary text-primary-foreground hover:bg-primary/90 cursor-pointer">
                     Vender
                   </Button>
                 </Link>
