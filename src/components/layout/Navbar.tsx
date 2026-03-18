@@ -35,7 +35,7 @@ export function Navbar() {
             </div>
 
             <Image
-                src="/logo.png"
+                src="/logo.webp"
                 alt="Logo"
                 width={160}
                 height={40}
