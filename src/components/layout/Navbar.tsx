@@ -11,7 +11,7 @@ export function Navbar() {
   const { status, user } = useAuthStore();
   const { logout } = useAuth();
   const firstName = user?.fullName.split(" ")[0] ?? "";
-  const isAdmin = user?.fullName.includes('user') ?? false;
+  const isAdmin = user?.roles.includes('admin') ?? false;
   const [searchQuery, setSearchQuery] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -26,9 +26,12 @@ export function Navbar() {
           {/* Logo */}
           <div className="flex items-center gap-2 shrink-0">
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+              <Link
+              href="/">
               <span className="text-primary-foreground font-bold text-sm">
                 T
               </span>
+              </Link>
             </div>
             <span className="text-xl font-semibold text-foreground hidden sm:block">
               Tienda Tdea

@@ -22,8 +22,9 @@ export function useAuth() {
     setStatus('checking');
     try {
       const response = await authService.checkStatus();
-      setUser(response.user);
-      setToken(response.token);
+     const { token, ...user } = response;
+     setUser(user as unknown as any);
+     setToken(token as unknown as string);
       setStatus('authenticated');
     } catch {
       logout();
@@ -48,7 +49,7 @@ export function useAuth() {
 
   const logoutUser = () => {
     logout();
-    router.push('/');
+    router.push('/login');
   };
 
   return {

@@ -89,12 +89,6 @@ export default function MisProductosPage() {
         </Button>
       </div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-6">
-        <StatCard label="Publicados" value={products.length} />
-        <StatCard label="Encontrados" value={filteredProducts.length} />
-      </div>
-
       {/* Products Card */}
       <div className="bg-card rounded-xl border border-border overflow-hidden">
         {filteredProducts.length === 0 ? (

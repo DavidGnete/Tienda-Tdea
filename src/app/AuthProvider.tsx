@@ -8,7 +8,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const { status, checkSession } = useAuth();
 
   useEffect(() => {
-    checkSession(); // ← esto faltaba
+    checkSession(); 
   }, []);
 
   if (status === 'checking') {

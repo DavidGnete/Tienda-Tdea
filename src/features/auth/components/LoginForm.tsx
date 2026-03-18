@@ -29,7 +29,7 @@ export function LoginForm() {
 
   const onSubmit = async (data: z.infer<typeof loginSchema>) => {
     await login(data);
-    router.push("/dashboard");
+    router.push("/");
   };
 
   return (
