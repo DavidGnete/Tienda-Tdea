@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, User, Menu, X } from "lucide-react";
+import { Search, User, Menu, X, Users } from "lucide-react";
 import { Button } from "../ui/Button";
 import { useState } from "react";
 import Link from "next/link";
@@ -11,9 +11,13 @@ export function Navbar() {
   const { status, user } = useAuthStore();
   const { logout } = useAuth();
   const firstName = user?.fullName.split(" ")[0] ?? "";
-  const isAdmin = user?.roles?.includes("admin") ?? false;
+  const isAdmin = user?.fullName.includes('user') ?? false;
   const [searchQuery, setSearchQuery] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  console.log(user)
+  console.log(user?.roles)
+  console.log(isAdmin)
 
   return (
     <header className="sticky top-0 z-50 bg-card border-b border-border">
@@ -49,15 +53,8 @@ export function Navbar() {
           <div className="flex items-center gap-3 shrink-0">
             {status === "authenticated" ? (
               <>
-              {isAdmin && (
-                <Link href="/dashboard/admin">
-                  <Button className="hidden sm:flex items-center gap-2 rounded-full border-border hover:border-primary hover:text-primary transition-colors">
-                    Panel Admin
-                  </Button>
-                </Link>
-                  )}
                 <span className="hidden sm:block text-sm text-foreground">
-                  Hola, {firstName}
+                  Hola {firstName}
                 </span>
 
                 <Link href="/dashboard/products">
@@ -72,7 +69,14 @@ export function Navbar() {
                   </Button>
                 </Link>
 
-                
+                {isAdmin && (
+                <Link href="/dashboard/admin">
+                  <Button className="hidden sm:flex items-center gap-2 rounded-full border-border hover:border-primary hover:text-primary transition-colors">
+                    Panel Admin
+                  </Button>
+                </Link>
+
+                  )}
 
                 <Button
                   variant="outline"
