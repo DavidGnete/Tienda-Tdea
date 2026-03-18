@@ -6,6 +6,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useAuthStore } from "@/store/auth.store";
 import { useAuth } from "@/features/auth/hooks/useAuth";
+import Image from "next/image";
 
 export function Navbar() {
   const { status, user } = useAuthStore();
@@ -24,18 +25,24 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-4">
           {/* Logo */}
-          <div className="flex items-center gap-2 shrink-0">
+          <div >
+
+          <Link href="/" className="flex items-center gap-10 shrink-0"> 
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <Link
-              href="/">
               <span className="text-primary-foreground font-bold text-sm">
                 T
               </span>
-              </Link>
             </div>
-            <span className="text-xl font-semibold text-foreground hidden sm:block">
-              Tienda Tdea
-            </span>
+
+            <Image
+                src="/logo.png"
+                alt="Logo"
+                width={160}
+                height={40}
+                className="h-10 w-auto"
+              />
+          </Link>
+          
           </div>
 
           {/* Barra de búsqueda - Desktop */}
@@ -95,7 +102,7 @@ export function Navbar() {
                   <Button
                     variant="outline"
                     className="hidden sm:flex items-center gap-2 rounded-full
-                    border-border hover:border-primary hover:text-primary transition-colors cursor-pointer"
+                    border-border hover:border-primary transition-colors cursor-pointer"
                   >
                     <User className="w-4 h-4" />
                     <span>Iniciar sesión</span>
