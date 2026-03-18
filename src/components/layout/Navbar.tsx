@@ -49,13 +49,20 @@ export function Navbar() {
           <div className="flex items-center gap-3 shrink-0">
             {status === "authenticated" ? (
               <>
+              {isAdmin && (
+                <Link href="/dashboard/admin">
+                  <Button className="hidden sm:flex items-center gap-2 rounded-full border-border hover:border-primary hover:text-primary transition-colors">
+                    Panel Admin
+                  </Button>
+                </Link>
+                  )}
                 <span className="hidden sm:block text-sm text-foreground">
                   Hola, {firstName}
                 </span>
 
                 <Link href="/dashboard/products">
                   <Button className="hidden sm:flex items-center gap-2 rounded-full border-border hover:border-primary hover:text-primary transition-colors">
-                    Mis productos
+                    Mis productos 
                   </Button>
                 </Link>
 
@@ -65,13 +72,7 @@ export function Navbar() {
                   </Button>
                 </Link>
 
-                {isAdmin && (
-                <Link href="/dashboard/admin">
-                  <Button className="hidden sm:flex items-center gap-2 rounded-full border-border hover:border-primary hover:text-primary transition-colors">
-                    Panel Admin
-                  </Button>
-                </Link>
-                  )}
+                
 
                 <Button
                   variant="outline"
@@ -146,6 +147,7 @@ export function Navbar() {
                     Vender
                   </Button>
                 </Link>
+                
                 {isAdmin && (
                 <Link href="/dashboard/admin">
                   <Button className="hidden sm:flex items-center gap-2 rounded-full border-border hover:border-primary hover:text-primary transition-colors">
