@@ -11,7 +11,6 @@ import { Pagination } from "@/components/layout/Pagination"
 import { ProductActions } from "@/features/products/components/productAction"
 import { ProductRow } from "@/features/products/components/productRow"
 import { resolveImage } from "@/utils/resolveImage"
-import { StatCard } from "@/components/ui/startCard"
 import { EmptyState } from "@/features/products/components/productEmtity"
 
 

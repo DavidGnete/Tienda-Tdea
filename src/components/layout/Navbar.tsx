@@ -11,14 +11,10 @@ import Image from "next/image";
 export function Navbar() {
   const { status, user } = useAuthStore();
   const { logout } = useAuth();
-  const firstName = user?.fullName.split(" ")[0] ?? "";
   const isAdmin = user?.roles.includes('admin') ?? false;
   const [searchQuery, setSearchQuery] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  console.log(user)
-  console.log(user?.roles)
-  console.log(isAdmin)
 
   return (
     <header className="sticky top-0 z-50 bg-card border-b border-border">
@@ -63,9 +59,6 @@ export function Navbar() {
           <div className="flex items-center gap-3 shrink-0">
             {status === "authenticated" ? (
               <>
-                <span className="hidden sm:block text-sm text-foreground">
-                  Hola {firstName}
-                </span>
 
                 <Link href="/dashboard/products">
                   <Button className="hidden sm:flex items-center gap-2 rounded-full border-border hover:border-primary hover:text-primary transition-colors">

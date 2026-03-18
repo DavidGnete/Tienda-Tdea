@@ -132,9 +132,6 @@ export default function ProductPage() {
           
         </div>
       )}
-      <div>
-        <ProductGrid products={products} />
-      </div>
     </main>
   );
 }
