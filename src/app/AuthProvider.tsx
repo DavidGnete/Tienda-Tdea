@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import { useEffect } from 'react';
 import { useAuth } from '@/features/auth/hooks/useAuth';
 
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const { status, checkSession } = useAuth();
 
@@ -13,11 +14,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   if (status === 'checking') {
     return (
-      <div className="min-h-screen grid place-items-center bg-background px-4 py-16">
-        <div className="flex flex-col items-center gap-3">
-          <p className="text-sm text-muted-foreground">Verificando sesión…</p>
+      <div className="min-h-screen flex flex-col items-center justify-center gap-3 bg-background">
+        <div className="w-10 h-15 rounded-full border-5 border-muted border-t-primary animate-spin" />
+          <p className="text-sm text-muted-foreground">Estamos Verificando sesión……</p>
         </div>
-      </div>
     );
   }
 
