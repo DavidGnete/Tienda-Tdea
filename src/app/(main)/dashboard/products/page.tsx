@@ -76,9 +76,9 @@ export default function MisProductosPage() {
   }
 
   return (
-    <main className="max-w-5xl mx-auto px-4 py-8">
+    <main className="max-w-5xl mx-auto  px-4 py-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+      <div className="flex flex-col items-center sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <h1 className="text-2xl font-bold text-foreground">Mis productos</h1>
         <Button asChild className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 w-full sm:w-auto">
           <Link href="/dashboard/new">

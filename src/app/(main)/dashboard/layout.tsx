@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/store/auth.store';
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+
 
 export default function DashboardLayout({
   children,
@@ -21,13 +21,8 @@ export default function DashboardLayout({
 
   if (status === 'checking') {
     return (
-      <div className="min-h-[60vh] grid place-items-center">
-        <DotLottieReact
-        src="https://lottie.host/1d7d83ac-baba-4cc5-9db1-14bb9390fd9f/IhgW6c31Iq.lottie"
-        loop
-        autoplay
-        style={{ height: "220px", width: "220px" }}
-      />
+      <div className="min-h-[60vh] flex flex-col items-center justify-center gap-3">
+        <div className="w-10 h-10 rounded-full border-5 border-muted border-t-primary animate-spin" />
         <p className="text-sm text-muted-foreground">Estamos Verificando acceso…</p>
       </div>
     );
