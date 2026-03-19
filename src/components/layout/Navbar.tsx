@@ -21,15 +21,14 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-4">
           {/* Logo */}
-          <div >
 
+          <div className="flex-1 flex justify-start">
           <Link href="/" className="flex items-center gap-10 shrink-0 sm:gap-3"> 
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
               <span className="text-primary-foreground font-bold text-sm">
                 T
               </span>
             </div>
-
             <Image
                 src="/logo.webp"
                 alt="Logo"
@@ -37,9 +36,8 @@ export function Navbar() {
                 height={40}
                 className="h-10 w-auto"
               />
-          </Link>
-          
-          </div>
+          </Link>  
+        </div>
 
           {/* Barra de búsqueda - Desktop */}
           <div className="flex-1 max-w-2xl hidden md:block">
