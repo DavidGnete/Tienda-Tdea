@@ -61,20 +61,23 @@ export function Navbar() {
               <>
 
                 <Link href="/dashboard/products">
-                  <Button className="hidden sm:flex items-center gap-2 rounded-full border-border hover:border-primary hover:text-primary transition-colors">
+                  <Button className="hidden sm:flex items-center gap-2 rounded-full bg-primary
+                  text-primary-foreground hover:bg-primary/90 cursor-pointer">
                     Mis productos 
                   </Button>
                 </Link>
 
                 <Link href="/dashboard/new">
-                  <Button className="hidden sm:flex items-center gap-2 rounded-full bg-primary text-primary-foreground hover:bg-primary/90">
+                  <Button className="hidden sm:flex items-center gap-2 rounded-full bg-primary
+                  text-primary-foreground hover:bg-primary/90 cursor-pointer">
                     Vender
                   </Button>
                 </Link>
 
                 {isAdmin && (
                 <Link href="/dashboard/admin">
-                  <Button className="hidden sm:flex items-center gap-2 rounded-full border-border hover:border-primary hover:text-primary transition-colors">
+                  <Button className="hidden sm:flex items-center gap-2 rounded-full bg-primary
+                  text-primary-foreground hover:bg-primary/90 cursor-pointer">
                     Panel Admin
                   </Button>
                 </Link>
@@ -83,7 +86,8 @@ export function Navbar() {
 
                 <Button
                   variant="outline"
-                  className="hidden sm:flex items-center gap-2 rounded-full border-border hover:border-primary hover:text-primary transition-colors"
+                  className="hidden sm:flex items-center gap-2 rounded-full border-border hover:border-primary
+                  transition-colors cursor-pointer"
                   onClick={logout}
                 >
                   Cerrar sesión
@@ -136,7 +140,8 @@ export function Navbar() {
               placeholder="Buscar productos..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 bg-input border border-border rounded-full text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+              className="w-full pl-10 pr-4 py-2.5 bg-input border border-border rounded-full
+              text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
             />
           </div>
         </div>

@@ -11,7 +11,7 @@ import { Pagination } from "@/components/layout/Pagination"
 import { ProductActions } from "@/features/products/components/productAction"
 import { ProductRow } from "@/features/products/components/productRow"
 import { resolveImage } from "@/utils/resolveImage"
-import { EmptyState } from "@/features/products/components/productEmtity"
+import { EmptyPage } from "../empty/page"
 
 
 
@@ -91,7 +91,7 @@ export default function MisProductosPage() {
       {/* Products Card */}
       <div className="bg-card rounded-xl border border-border overflow-hidden">
         {filteredProducts.length === 0 ? (
-          <EmptyState />
+          <EmptyPage />
         ) : (
           <>
             {/* Desktop Table */}

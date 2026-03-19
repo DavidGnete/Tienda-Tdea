@@ -8,7 +8,7 @@ import { useProducts } from "@/features/products/hooks/useProducts";
 
 import { ImageSlideshow } from '@/features/products/components/ImageSlideShow';
 import { Button } from '@/components/ui/Button';
-import { ProductGrid } from '@/features/products/components/ProductGrid';
+
 
 // ─── Icono WhatsApp ──────────────────────────────────────────────────
 function WhatsAppIcon({ className }: { className?: string }) {

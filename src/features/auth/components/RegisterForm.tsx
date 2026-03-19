@@ -39,7 +39,7 @@ export function RegisterForm() {
 
   const onSubmit = async (data: z.infer<typeof registerSchema>) => {
     await registerUser(data);
-    router.push("/dashboard");
+    router.push("/login");
   };
 
   return (
