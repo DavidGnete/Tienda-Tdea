@@ -11,7 +11,7 @@ import { Pagination } from "@/components/layout/Pagination"
 import { ProductActions } from "@/features/products/components/productAction"
 import { ProductRow } from "@/features/products/components/productRow"
 import { resolveImage } from "@/utils/resolveImage"
-import { EmptyPage } from "../empty/page"
+import EmptyPage from "../empty/page"
 
 
 

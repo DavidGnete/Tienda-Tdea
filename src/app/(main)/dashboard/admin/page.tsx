@@ -9,7 +9,7 @@ import { Pagination } from "@/components/layout/Pagination"
 import { ProductRow } from "@/features/products/components/productRow"
 import { ProductCard } from "@/features/products/components/productCard"
 import { StatCard } from "@/components/ui/startCard"
-import { EmptyPage } from "../empty/page"
+import EmptyPage from "../empty/page"
 import { PAGINATION_DEFAULTS } from "@/lib/constants"
 
 export default function AdminPage() {
