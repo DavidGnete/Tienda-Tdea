@@ -66,12 +66,6 @@ export function RegisterForm() {
           Revisa tu bandeja de entrada y también la carpeta de spam.
           El enlace expira en 24 horas.
         </p>
-        <button
-          onClick={() => router.push("/login")}
-          className="text-sm text-primary underline underline-offset-4"
-        >
-          Ir al login
-        </button>
       </div>
     );
   }
