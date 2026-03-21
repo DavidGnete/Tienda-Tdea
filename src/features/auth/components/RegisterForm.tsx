@@ -7,6 +7,7 @@ import { z } from "zod";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { useRegister } from "../hooks/useRegister";
+import { useState } from "react";
 
 const registerSchema = z
   .object({
@@ -26,21 +27,53 @@ const registerSchema = z
   });
 
 export function RegisterForm() {
+  
   const router = useRouter();
   const { register: registerUser, isLoading, error } = useRegister();
+  const [emailSent, setEmailSent] = useState(false);
 
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
   });
 
   const onSubmit = async (data: z.infer<typeof registerSchema>) => {
-    await registerUser(data);
-    router.push("/login");
+    try{
+      await registerUser(data);
+      setEmailSent(true);
+    }catch(err){
+      // El error ya se maneja en el hook useRegister, así que no necesitamos hacer nada aquí
   };
+}
+
+  if (emailSent) {
+    return (
+      <div className="text-center space-y-4 py-8">
+        <div className="text-5xl">📧</div>
+        <h2 className="text-xl font-semibold">Verifica tu correo</h2>
+        <p className="text-muted-foreground text-sm">
+          Te enviamos un enlace de confirmación a{" "}
+          <span className="font-medium text-foreground">
+            {getValues("email")}
+          </span>
+        </p>
+        <p className="text-xs text-muted-foreground">
+          Revisa tu bandeja de entrada y también la carpeta de spam.
+          El enlace expira en 24 horas.
+        </p>
+        <button
+          onClick={() => router.push("/login")}
+          className="text-sm text-primary underline underline-offset-4"
+        >
+          Ir al login
+        </button>
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
