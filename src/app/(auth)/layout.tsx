@@ -11,28 +11,27 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounder-2xl relative min-h-screen flex items-center justify-center px-7 py-10">
+    <div className="relative min-h-screen flex items-center justify-center ">
 
       <Image
       src = "/green.jpg"
       alt = "Tienda TDEA"
       fill
-      className="object-cover object-center -z-10"
+      className="object-cover -z-10"
       priority
       />
       
-
-        <div className="absolute top-7 left-1/2 -translate-x-1/2 sm:top-40">
+        <div className="flex flex-col items-center gap-6 w-full max-w-md px-7 py-10">
         <Image
-          src="/logo.webp"
+          src="/LogoWhite.webp"
           alt="Tienda TdeA"
           width={8000}
           height={900}
-          className="h-15 w-auto"
+          className="w-70 h-auto"
           priority
         />
+        {children}
       </div>
-      <div className="w-full max-w-md mt-16">{children}</div>
     </div>
   );
 }
