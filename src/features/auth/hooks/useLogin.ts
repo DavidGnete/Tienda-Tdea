@@ -16,7 +16,7 @@ export function useLogin() {
     try {
       await login(dto);
     } catch (err) {
-      setError('Credenciales inválidas.');
+      setError('Credenciales inválidas, verifica tu correo y contraseña e intenta nuevamente.');
       throw err;
     } finally {
       setIsLoading(false);

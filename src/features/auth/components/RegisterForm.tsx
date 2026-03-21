@@ -13,7 +13,7 @@ const registerSchema = z
   .object({
     fullName: z.string().min(3, "Ingresa tu nombre completo."),
     email: z.string().email("Ingresa un correo válido.")
-    .endsWith("@correo.tdea.edu.co", "Solo se permiten correos institucionales @correo.tdea.edu.co"),
+    .endsWith("@correo.tdea.edu.co", "El Marketplace es exclusivo para estudiantes del TDEA. Ingresa tu correo institucional para registrarte."),
     password: z
       .string()
       .min(6, "La contraseña debe tener al menos 6 caracteres."),

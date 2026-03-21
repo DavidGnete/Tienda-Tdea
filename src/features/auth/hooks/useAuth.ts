@@ -39,13 +39,9 @@ export function useAuth() {
     router.push('/');
   };
 
-  // TODO: cuando se active verificación de email, eliminar setUser/setToken/setStatus
-  const register = async (dto: RegisterDto) => {
-    const response = await authService.register(dto);
-    setUser(response.user as unknown as any);
-    setToken(response.token as unknown as string);
-    setStatus('authenticated');
-  };
+ const register = async (dto: RegisterDto) => {
+  await authService.register(dto);
+};
 
   const logoutUser = () => {
     logout();
