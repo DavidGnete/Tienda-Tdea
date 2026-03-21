@@ -27,7 +27,7 @@ export default function AuthLayout({
           alt="Tienda TdeA"
           width={8000}
           height={900}
-          className="w-70 h-auto"
+          className="w-58 h-auto"
           priority
         />
         {children}
