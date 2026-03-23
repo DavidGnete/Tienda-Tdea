@@ -1,68 +1,78 @@
-"use client"
+"use client";
 
-import { use, useEffect, useState } from "react"
-import { useRouter } from "next/navigation"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
-import { ArrowLeft, Trash2 } from "lucide-react"
-import Link from "next/link"
-import { Button } from "@/components/ui/Button"
-import { ProductImageUpload } from "@/features/products/components/ProductImageUpload"
-import { useProduct } from "@/features/products/hooks/useProduct"
-import { useProductMutation } from "@/features/products/hooks/useProductMutation"
-import { DeleteModal } from "@/features/products/components/deleteProduct"
-
+import { use, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { ArrowLeft, Trash2 } from "lucide-react";
+import Link from "next/link";
+import { Button } from "@/components/ui/Button";
+import { ProductImageUpload } from "@/features/products/components/ProductImageUpload";
+import { useProduct } from "@/features/products/hooks/useProduct";
+import { useProductMutation } from "@/features/products/hooks/useProductMutation";
+import { DeleteModal } from "@/features/products/components/deleteProduct";
 
 // ─── Validación ───────────────────────────────────────────────────────
 const schema = z.object({
   title: z.string().min(3, "Mínimo 3 caracteres"),
   description: z.string().min(10, "Mínimo 10 caracteres"),
-  price: z.string()
+  price: z
+    .string()
     .min(1, "Ingresa un precio")
     .transform((val) => parseFloat(val))
     .pipe(z.number().min(1, "El precio debe ser mayor a 0")),
   images: z.array(z.string()).min(1, "Sube al menos una imagen"),
-})
+});
 
-type FormValues = z.infer<typeof schema>
+type FormValues = z.infer<typeof schema>;
 type FormInput = {
-  title: string
-  description: string
-  price: string
-  images: string[]
-}
+  title: string;
+  description: string;
+  price: string;
+  images: string[];
+};
 
 // ─── Página ───────────────────────────────────────────────────────────
-export default function EditProductPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params)
-  const router = useRouter()
-  const { product, isLoading: productLoading, error: productError } = useProduct(id)
-  const { update, remove, isLoading: isSubmitting } = useProductMutation()
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+export default function EditProductPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = use(params);
+  const router = useRouter();
+  const {
+    product,
+    isLoading: productLoading,
+    error: productError,
+  } = useProduct(id);
+  const { update, remove, isLoading: isSubmitting } = useProductMutation();
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const {
     register,
     handleSubmit,
     setValue,
     watch,
-    formState: { errors },reset} = useForm<FormInput, unknown, FormValues>({
+    formState: { errors },
+    reset,
+  } = useForm<FormInput, unknown, FormValues>({
     resolver: zodResolver(schema),
-    defaultValues: { title: "", description: "", price: "", images: [] }
-  })
+    defaultValues: { title: "", description: "", price: "", images: [] },
+  });
 
   useEffect(() => {
-  if (product) {
-    reset({
-      title: product.title,
-      description: product.description,
-      price: product.price.toString(),
-      images: product.images.map((img) => img.url),
-    })
-  }
-}, [product, reset])
+    if (product) {
+      reset({
+        title: product.title,
+        description: product.description,
+        price: product.price.toString(),
+        images: product.images.map((img) => img.url),
+      });
+    }
+  }, [product, reset]);
 
-  const images = watch("images")
+  const images = watch("images");
 
   const onSubmit = async (values: FormValues) => {
     try {
@@ -71,36 +81,39 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
         description: values.description,
         price: values.price,
         images: values.images,
-      })
-      router.push(`/products/${product?.slug ?? id}`)
+      });
+      router.push(`/products/${product?.slug ?? id}`);
     } catch {
       // el error ya lo maneja useProductMutation
     }
-  }
+  };
 
   const handleDelete = async () => {
     try {
-      await remove(id)
-      router.push("/dashboard/products")
+      await remove(id);
+      router.replace("/dashboard/products");
+      router.refresh();
     } catch {
       // el error ya lo maneja useProductMutation
     }
-  }
+  };
 
   if (productLoading) {
     return (
       <div className="min-h-[60vh] grid place-items-center">
         <p className="text-sm text-muted-foreground">Cargando producto…</p>
       </div>
-    )
+    );
   }
 
   if (productError || !product) {
     return (
       <div className="min-h-[60vh] grid place-items-center">
-        <p className="text-sm text-destructive">{productError ?? "Producto no encontrado."}</p>
+        <p className="text-sm text-destructive">
+          {productError ?? "Producto no encontrado."}
+        </p>
       </div>
-    )
+    );
   }
 
   return (
@@ -115,7 +128,9 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
           >
             <ArrowLeft className="w-5 h-5" />
           </Link>
-          <h1 className="text-2xl font-bold text-foreground">Editar producto</h1>
+          <h1 className="text-2xl font-bold text-foreground">
+            Editar producto
+          </h1>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -123,10 +138,14 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
           <div className="space-y-1">
             <ProductImageUpload
               images={images}
-              onImagesChange={(urls) => setValue("images", urls, { shouldValidate: true })}
+              onImagesChange={(urls) =>
+                setValue("images", urls, { shouldValidate: true })
+              }
             />
             {errors.images && (
-              <p className="text-xs text-destructive">{errors.images.message}</p>
+              <p className="text-xs text-destructive">
+                {errors.images.message}
+              </p>
             )}
           </div>
 
@@ -144,7 +163,9 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
                   className="w-full bg-transparent text-foreground placeholder:text-muted-foreground focus:outline-none text-sm"
                 />
                 {errors.title && (
-                  <p className="text-xs text-destructive mt-1">{errors.title.message}</p>
+                  <p className="text-xs text-destructive mt-1">
+                    {errors.title.message}
+                  </p>
                 )}
               </div>
             </div>
@@ -162,7 +183,9 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
                   className="w-full bg-transparent text-foreground placeholder:text-muted-foreground focus:outline-none text-sm resize-none"
                 />
                 {errors.description && (
-                  <p className="text-xs text-destructive mt-1">{errors.description.message}</p>
+                  <p className="text-xs text-destructive mt-1">
+                    {errors.description.message}
+                  </p>
                 )}
               </div>
             </div>
@@ -184,7 +207,9 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
                   />
                 </div>
                 {errors.price && (
-                  <p className="text-xs text-destructive mt-1">{errors.price.message}</p>
+                  <p className="text-xs text-destructive mt-1">
+                    {errors.price.message}
+                  </p>
                 )}
               </div>
             </div>
@@ -227,5 +252,5 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
         productName={product.title}
       />
     </>
-  )
+  );
 }
