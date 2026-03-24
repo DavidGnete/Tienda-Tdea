@@ -22,14 +22,6 @@ export function Footer() {
           >
             Mi tienda
           </Link>
-          <a
-            href="https://tiendatdeaback.onrender.com/api"
-            target="_blank"
-            rel="noreferrer"
-            className="text-muted-foreground hover:text-foreground"
-          >
-            API
-          </a>
         </div>
       </div>
     </footer>
