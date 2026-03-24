@@ -64,6 +64,7 @@ export function RegisterForm() {
         </p>
         <p className="text-xs text-muted-foreground">
           Revisa tu bandeja de entrada y también la carpeta de spam.
+          El mensaje puede tardar entre (3-5) minutos en llegar.
           El enlace expira en 24 horas.
         </p>
       </div>
